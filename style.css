@@ -48,8 +48,8 @@ input {
 }
 
 .board {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   border: 1px solid black;
   margin: 0 auto;
   display: grid;
@@ -58,4 +58,19 @@ input {
 
 .board div {
   border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  font-size: 3rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-display {
+  text-align: center;
+}
+
+.winning {
+  display: none;
 }
