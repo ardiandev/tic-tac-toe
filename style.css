@@ -40,6 +40,7 @@ input {
   margin: 0 auto;
   margin-top: 10px;
   padding: 5px;
+  font-size: 1.15rem;
 }
 
 .board-container {
@@ -72,5 +73,22 @@ input {
 }
 
 .winning {
+  display: block;
+}
+
+.player1 {
+  text-transform: capitalize;
+}
+
+.player-info {
+  height: 50px;
+}
+
+.warning-btn {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.playing {
   display: none;
 }
