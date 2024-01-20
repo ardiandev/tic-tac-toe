@@ -21,7 +21,7 @@ const Setup = (() => {
     winning.style.display = "none";
     playing.style.display = "block";
     gameOver = false;
-    player1.value = "";
+    // player1.value = "";
   };
 
   const checkWinner = (name, mark) => {
@@ -57,7 +57,21 @@ const Setup = (() => {
         winning.textContent = `The winner is ${name}`;
         winning.style.display = "block";
         playing.style.display = "none";
+        document.querySelector(".start-btn").textContent = "Play again";
+        return;
       }
+    }
+
+    // Check for tie condition
+    if (
+      choices.length > 4 &&
+      keys.every(key => key.some(box => !choices.includes(box)))
+    ) {
+      gameOver = true;
+      winning.textContent = `It is a tie`;
+      winning.style.display = "block";
+      playing.style.display = "none";
+      document.querySelector(".start-btn").textContent = "Play again";
     }
   };
 
@@ -127,6 +141,7 @@ const createPlayer = (name, mark) => {
 
 // GAME
 const Game = (() => {
+  let playing = false;
   const player1 = document.querySelector("#player");
 
   const updatePlayer = currentPlayers => {
@@ -151,30 +166,41 @@ const Game = (() => {
   };
 
   return {
-    start
+    start,
+    playing
   };
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#player").value = "";
+});
 
 document.querySelector(".start-btn").addEventListener("click", event => {
   let startInfo = event.target.textContent;
   const warningBtn = document.querySelector(".warning-btn");
   const player = document.querySelector("#player");
+  // console.log(Game.players);
 
-  if (player.value === "") {
+  if (player.value !== "") {
+    Game.playing = true;
+  }
+
+  if (!Game.playing) {
     console.log("stop");
     warningBtn.textContent = "Please type your name!";
     return;
   }
 
-  if (startInfo === "Start") {
+  if (Game.playing && startInfo === "Start") {
     // console.log("start", event.target.textContent);
     Setup.playing.style.display = "block";
     Setup.winning.style.display = "none";
     event.target.textContent = "Restart";
     Game.start();
+    warningBtn.textContent = "";
   } else {
     // console.log(startInfo);
-    event.target.textContent = "Start";
+    event.target.textContent = "Restart";
     Setup.restart();
   }
 });
